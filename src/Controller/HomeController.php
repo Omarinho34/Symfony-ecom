@@ -20,10 +20,6 @@ final class HomeController extends AbstractController
             4
         );
         
-        //$articles = $entityManager->getRepository(Article::class)->findAll();
-
-
-
         return $this->render('home/index.html.twig', [
             'nouveauxArticles' => $nouveauxArticles,
         ]);

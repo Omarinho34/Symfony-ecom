@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
+use App\Repository\ConcentrationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ArticleRepository::class)]
-class Article
+#[ORM\Entity(repositoryClass: ConcentrationRepository::class)]
+class Concentration
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,25 +16,15 @@ class Article
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
-
-    #[ORM\ManyToOne(inversedBy: 'articles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
-
-    #[ORM\Column]
-    private ?\DateTime $date = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $price = null;
-
     /**
      * @var Collection<int, Stock>
      */
-    #[ORM\OneToMany(targetEntity: Stock::class, mappedBy: 'article_id')]
+    #[ORM\OneToMany(targetEntity: Stock::class, mappedBy: 'concentration')]
     private Collection $stocks;
 
     public function __construct()
@@ -48,38 +37,14 @@ class Article
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): static
+    public function setName(string $name): static
     {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTime
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTime $date): static
-    {
-        $this->date = $date;
+        $this->name = $name;
 
         return $this;
     }
@@ -96,18 +61,6 @@ class Article
         return $this;
     }
 
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): static
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Stock>
      */
@@ -120,7 +73,7 @@ class Article
     {
         if (!$this->stocks->contains($stock)) {
             $this->stocks->add($stock);
-            $stock->setArticleId($this);
+            $stock->setConcentration($this);
         }
 
         return $this;
@@ -130,8 +83,8 @@ class Article
     {
         if ($this->stocks->removeElement($stock)) {
             // set the owning side to null (unless already changed)
-            if ($stock->getArticleId() === $this) {
-                $stock->setArticleId(null);
+            if ($stock->getConcentration() === $this) {
+                $stock->setConcentration(null);
             }
         }
 

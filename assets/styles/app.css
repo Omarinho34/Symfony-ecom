@@ -45,3 +45,23 @@ body {
     transform: translateY(-2px);
 }
 
+/* article */
+
+.custom-bg {
+    background-color: #a78bfa;
+}
+.custom-text {
+    color: #a78bfa;
+}
+.custom-border {
+    border-color: #a78bfa;
+}
+.rating-star {
+    color: #fbbf24;
+}
+.product-image {
+    transition: transform 0.3s ease;
+}
+.product-image:hover {
+    transform: scale(1.05);
+}

@@ -34,7 +34,7 @@
                             {{ article.price }} €
                         </p>
                         <!--<p class="text-gray-600 mb-4">{{ article.description }}</p>-->
-                        <a href="{{ path('show_article', { 'id': article.id }) }}" class="btn-primary bg-purple-100 text-purple-700 px-6 py-2 rounded-full font-medium w-full mt-auto text-center">Découvrez</a>
+                        <a href="{{ path('app_article_show', { 'id': article.id }) }}" class="btn-primary bg-purple-100 text-purple-700 px-6 py-2 rounded-full font-medium w-full mt-auto text-center">Découvrez</a>
                     </div>
                 </div>
             {% endfor %}
